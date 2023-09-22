@@ -2,29 +2,35 @@ import React, {useContext, useEffect} from "react";
 import {View,Text,StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native'
 import {Context} from "../context/BlogContext";
 import { AntDesign } from '@expo/vector-icons';
-const IndexScreen =  ()=>{
+
+const IndexScreen =  ({navigation})=>{
 
     const {state, addBlogPost, deleteBlogPost}  = useContext(Context)
     
+    
+
     return <View>
        
-        <Button title="Add  Post" onPress={()=>{addBlogPost()}}/>
-  
+        <Button title="Add Post" onPress={()=>{addBlogPost()}}/>
+        <Button title="Create Post" onPress={()=>navigation.navigate('Create')}/>
         <FlatList 
         data={state}
-        keyExtractor={item => item.title}
+        keyExtractor={item => item.id}
         renderItem={({item})=>{
         return (
+            <TouchableOpacity onPress={()=>navigation.navigate('Show', {id : item.id})}>
         <View style={styles.blog}>
             
             <Text style={{marginLeft : 10}}>{item.title} - {item.id}</Text>
             <TouchableOpacity onPress={()=>deleteBlogPost(item.id)}>
             <AntDesign  name="delete" size={24} color="black" />
             </TouchableOpacity>
-        </View>
+        </View></TouchableOpacity>
         )}}/>
     </View>
 }
+
+
 
 const styles = StyleSheet.create({
     blog :  {
