@@ -24,7 +24,7 @@ const EditScreen = ({navigation})=>{
     />
     <Button title='Save Edit'
     onPress={()=>editBlogPost(id,title, ()=>{
-        navigation.navigate('index')
+        navigation.pop()
     })
        
     }

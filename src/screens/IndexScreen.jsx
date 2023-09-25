@@ -5,9 +5,15 @@ import { AntDesign } from '@expo/vector-icons';
 
 const IndexScreen =  ({navigation})=>{
 
-    const {state, addBlogPost, deleteBlogPost}  = useContext(Context)
-    
-    
+    const {state, addBlogPost, deleteBlogPost, getBlogPosts}  = useContext(Context)
+
+    useEffect(()=>{
+        getBlogPosts()
+
+        navigation.addListener('didFocus',()=>{
+            getBlogPosts()
+        })
+    }, [])
 
     return <View>
        
